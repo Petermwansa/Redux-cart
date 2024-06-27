@@ -1,7 +1,27 @@
+import { useDispatch } from 'react-redux';
 import classes from './CartItem.module.css';
+import { cartActions } from '../../store/cart-slice';
 
 const CartItem = (props) => {
-  const { title, quantity, total, price } = props.item;
+
+  const dispatch = useDispatch()
+
+
+  const { title, quantity, total, price, id } = props.item;
+
+  const removeItemToCartHandler = () => {
+    // the removeitem dispatch action needs an id as a payload 
+    dispatch(cartActions.removeItemFromCart(id))
+  }
+
+  const addItemToCartHandler = () => {
+    dispatch(cartActions.addItemToCart({
+      id,
+      title,
+      price,          //we wrote just price and not "price: price" because the key and the value are equal in spelling
+    }))
+  }
+
 
   return (
     <li className={classes.item}>
@@ -17,8 +37,8 @@ const CartItem = (props) => {
           x <span>{quantity}</span>
         </div>
         <div className={classes.actions}>
-          <button>-</button>
-          <button>+</button>
+          <button onClick={removeItemToCartHandler}>-</button>
+          <button onClick={addItemToCartHandler}>+</button>
         </div>
       </div>
     </li>

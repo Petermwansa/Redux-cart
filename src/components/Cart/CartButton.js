@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const CartButton = (props) => {
 
   const dispatch = useDispatch();
+  // this uses the totalQuantity prop and then displays the total amount of items in the cart 
   const cartQuantity = useSelector(state => state.cart.totalQuantity)
 
   const toggleCartHandler = () => {
